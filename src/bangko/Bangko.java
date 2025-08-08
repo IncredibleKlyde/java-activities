@@ -20,6 +20,7 @@ public class Bangko {
         System.out.print("Select option: ");
         int choice = sc.nextInt();
         int resp;
+        int index = 0;
         
         switch(choice){
             case 1:
@@ -32,39 +33,54 @@ public class Bangko {
                     
                     switch (action) {
                         case 1:
-                            bApp[0] = new BankingClass();
+                            bApp[index] = new BankingClass();
                             System.out.print("Enter Account No.: ");
-                            bApp[0].setAccountNo(sc.nextInt());
+                            bApp[index].setAccountNo(sc.nextInt());
                             System.out.print("Enter Account Pin: ");
-                            bApp[0].setPass(sc.nextInt());
+                            bApp[index].setPass(sc.nextInt());
+                            index += 1;
                             break;
                         case 2:
                             int attempts = 3;
-                            BankingClass bc = new BankingClass();
+                            boolean loggedIn = false;
 
-                            System.out.print("Enter your Account No: ");
-                            int accountNo = sc.nextInt();
-
-                            System.out.print("Enter your Pin: ");
-                            int pin = sc.nextInt();
-
-                            while(!(bc.accountConfirmation(accountNo, pin))){
-                                if(attempts == 1){
-                                    System.out.println("ATTEMPT LIMIT REACHED!");
-                                    System.exit(0);
-                                }
-
-                                attempts--;
-                                System.out.println("Attempt Left: "+attempts);
-
-                                System.out.println("INVALID ACCOUNT!");
+                            do{
+                              if(attempts == 1){
+                                System.out.println("ATTEMPT LIMIT REACHED!");
+                                System.exit(0);
+                              }
+                              
                                 System.out.print("Enter your Account No: ");
-                                accountNo = sc.nextInt();
+                                int accountNo = sc.nextInt();
                                 System.out.print("Enter your Pin: ");
-                                pin = sc.nextInt();
-                            }
+                                int pin = sc.nextInt();
+                                
+                              
+                                for (int i = 0; i < index; i++){
+                                    if (bApp[i].accountConfirmation(accountNo, pin)){
+                                        loggedIn = true;
+                                        break;
+                                    }
+                                }
+                                if (loggedIn == true){
+                                    System.out.println("You sucessfully logged in");
+                                    break;
+                                }
+                                    System.out.println("Invalid Account!");
+                                
+                                    attempts--;
+                                System.out.println("Attempt Left: "+attempts);
+                            }while (attempts > 0);
+   
+                               
                         break;
                         case 3:
+                                System.out.println("ID      Account Numbber");           
+                                System.out.println("-----------------------");
+                            for (int i = 0; i < index; i++){
+                                System.out.printf("%d       %d\n", i+1 , bApp[i].getAccountNo() );
+                                
+                            } 
                             break;
                     }
                     

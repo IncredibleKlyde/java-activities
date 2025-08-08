@@ -2,10 +2,10 @@ package bangko;
 
 public class BankingClass {
     
-        int accno = 1;
+        int accno;
         String name;
         int defaultbalance;
-        int pass = 2004;
+        int pass;
         
     
     public boolean accountConfirmation (int acc, int pn ){
